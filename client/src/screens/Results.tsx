@@ -8,13 +8,17 @@ import { useSearchParams } from "react-router-dom";
 const Results = () => {
   const [loading, setLoading] = useState(false);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     apiClient
       .get("/recipes", {
         params: {
-          ingredients: searchParams.get('ingredients'),
+          ingredients: searchParams.get("ingredients"),
+          minimizeMissingIngredients: searchParams.get(
+            "minimizeMissingIngredients"
+          ),
+          ignorePantry: searchParams.get("ignorePantry"),
         },
       })
       .then(({ data }) => {

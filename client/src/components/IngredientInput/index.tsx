@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { Search, Plus, Send } from "react-feather";
 import SelectedIngredientsContainer from "./SelectedIngredientsContainer";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { ENTER_KEY } from "lib/constants";
+import Checkbox from "./Checkbox";
+
+interface IIngredientInputOptions {
+  minimizeMissingIngredients: boolean;
+  ignorePantry: boolean;
+}
 
 const ICON_SIZE = "24px";
 const BUTTONS_CLASSNAMES =
@@ -11,6 +17,10 @@ const BUTTONS_CLASSNAMES =
 const IngredientInput = () => {
   const [input, setInput] = useState("");
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
+  const [options, setOptions] = useState<IIngredientInputOptions>({
+    minimizeMissingIngredients: false,
+    ignorePantry: true,
+  });
 
   const navigate = useNavigate();
 
@@ -24,13 +34,29 @@ const IngredientInput = () => {
   };
 
   const handleRedirect = () => {
-    navigate(`/results?ingredients=${selectedIngredients.join(",")}`);
+    const PARAMS = {
+      ingredients: selectedIngredients.join(','),
+      minimizeMissingIngredients: String(options.minimizeMissingIngredients),
+      ignorePantry: String(options.ignorePantry)
+    }
+
+    navigate({
+      pathname: '/results',
+      search: `?${createSearchParams(PARAMS)}`,
+    });
   };
 
   const handleKeyDown = (key: string) => {
     if (key === ENTER_KEY) {
       handleAddBtnClick();
     }
+  };
+
+  const handleCheckboxChange = (checked: boolean, id: string) => {
+    setOptions({
+      ...options,
+      [id]: checked,
+    });
   };
 
   return (
@@ -58,6 +84,20 @@ const IngredientInput = () => {
         >
           <Send size={ICON_SIZE} />
         </button>
+      </div>
+      <div className="w-full flex justify-between items-center px-4">
+        <Checkbox
+          id="minimizeMissingIngredients"
+          label="Minimize missing ingredients"
+          checked={options.minimizeMissingIngredients}
+          onChange={handleCheckboxChange}
+        />
+        <Checkbox
+          id="ignorePantry"
+          label="Ignore typical pantry items (such as water, salt, flour, etc.)"
+          checked={options.ignorePantry}
+          onChange={handleCheckboxChange}
+        />
       </div>
       <SelectedIngredientsContainer
         selectedIngredients={selectedIngredients}
