@@ -12,7 +12,11 @@ const Results = () => {
 
   useEffect(() => {
     apiClient
-      .get("/")
+      .get("/recipes", {
+        params: {
+          ingredients: searchParams.get('ingredients'),
+        },
+      })
       .then(({ data }) => {
         console.log({ data });
       })

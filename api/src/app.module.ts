@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ApiKeyModule } from './api-key/api-key.module';
 import { RecipesModule } from './recipes/recipes.module';
+import { SpoonacularModule } from './spoonacular/spoonacular.module';
 import entities from './entities';
 
 @Module({
@@ -26,6 +27,7 @@ import entities from './entities';
     }),
     ApiKeyModule,
     RecipesModule,
+    SpoonacularModule,
   ],
   controllers: [AppController],
   providers: [AppService],
