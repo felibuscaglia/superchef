@@ -3,6 +3,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ApiKeyModule } from './api-key/api-key.module';
+import { RecipesModule } from './recipes/recipes.module';
 import entities from './entities';
 
 @Module({
@@ -22,6 +24,8 @@ import entities from './entities';
       }),
       inject: [ConfigService],
     }),
+    ApiKeyModule,
+    RecipesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
