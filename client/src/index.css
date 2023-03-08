@@ -19,8 +19,11 @@ a {
 }
 
 button {
-  transition: .2s ease all;
   font-family: var(--main-text-font-family);
+}
+
+a, button {
+  transition: .2s ease all;
 }
 
 input {
