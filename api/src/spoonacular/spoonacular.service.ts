@@ -20,7 +20,6 @@ export class SpoonacularService {
         'recipes/findByIngredients',
         {
           ingredients,
-          number: 100,
           ranking: minimizeMissingIngredients ? 2 : 1,
           ignorePantry,
         },

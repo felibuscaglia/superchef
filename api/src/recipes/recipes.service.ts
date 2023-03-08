@@ -19,11 +19,21 @@ export class RecipesService {
       );
     const RECIPES: IRecipeResult[] = [];
 
-    for (const { id, title, image } of RECIPES_DTO) {
+    for (const {
+      id,
+      title,
+      image,
+      missedIngredients,
+      unusedIngredients,
+      usedIngredients,
+    } of RECIPES_DTO) {
       RECIPES.push({
         id,
         title,
         image,
+        missedIngredients,
+        unusedIngredients,
+        usedIngredients,
       });
     }
 

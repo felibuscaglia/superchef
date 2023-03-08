@@ -3,7 +3,7 @@ import PageHead from "components/PageHead";
 
 const MainScreen = () => {
   return (
-    <div>
+    <main>
       <PageHead />
       <section className="flex flex-col items-center justify-center text-center h-96">
         <h1 className="font-title text-6xl">Cook with what you have.</h1>
@@ -16,7 +16,7 @@ const MainScreen = () => {
         </p>
         <IngredientInput />
       </section>
-    </div>
+    </main>
   );
 };
 

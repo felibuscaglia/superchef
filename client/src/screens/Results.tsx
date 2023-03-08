@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 const Results = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [results, setResults] = useState<IRecipeResult[]>([]);
 
   const [searchParams] = useSearchParams();
@@ -33,14 +33,14 @@ const Results = () => {
   }, []);
 
   return (
-    <div>
+    <main>
       <PageHead />
       {loading ? (
         <Loader loadingText="Hang tight! We are looking for the best recipes with the ingredients you selected." />
       ) : (
         <RecipesResults results={results} />
       )}
-    </div>
+    </main>
   );
 };
 
