@@ -3,7 +3,9 @@ export interface ISearchRecipesByIngredientsDto {
   image: string;
   missedIngredientCount: number;
   missedIngredients: IIngredient[];
+  unusedIngredientCount: number;
   unusedIngredients: IIngredient[];
+  usedIngredientCount: number;
   usedIngredients: IIngredient[];
   title: string;
 }

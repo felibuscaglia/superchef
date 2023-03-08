@@ -21,15 +21,17 @@ const RecipesResults = ({ results }: IRecipesResults) => {
             title,
             image,
             missedIngredients,
-            unusedIngredients,
+            totalIngredientsCount,
             usedIngredients,
+            usedIngredientsCount
           }) => (
             <Result
               key={`result-${id}`}
               title={title}
               image={image}
               missedIngredients={missedIngredients}
-              unusedIngredients={unusedIngredients}
+              totalIngredientsCount={totalIngredientsCount}
+              usedIngredientsCount={usedIngredientsCount}
               usedIngredients={usedIngredients}
             />
           )

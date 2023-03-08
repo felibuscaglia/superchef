@@ -19,21 +19,23 @@ export class RecipesService {
       );
     const RECIPES: IRecipeResult[] = [];
 
-    for (const {
-      id,
-      title,
-      image,
-      missedIngredients,
-      unusedIngredients,
-      usedIngredients,
-    } of RECIPES_DTO) {
+    for (const RECIPE of RECIPES_DTO) {
+      const {
+        usedIngredientCount = 0,
+        missedIngredientCount = 0,
+        unusedIngredientCount = 0,
+      } = RECIPE;
+      const TOTAL_INGREDIENTS_COUNT =
+        usedIngredientCount + missedIngredientCount - unusedIngredientCount;
+
       RECIPES.push({
-        id,
-        title,
-        image,
-        missedIngredients,
-        unusedIngredients,
-        usedIngredients,
+        id: RECIPE.id,
+        title: RECIPE.title,
+        image: RECIPE.image,
+        missedIngredients: RECIPE.missedIngredients,
+        usedIngredients: RECIPE.usedIngredients,
+        usedIngredientsCount: usedIngredientCount,
+        totalIngredientsCount: TOTAL_INGREDIENTS_COUNT,
       });
     }
 

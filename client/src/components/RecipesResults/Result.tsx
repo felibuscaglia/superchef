@@ -8,41 +8,46 @@ import { calculatePercentage } from "lib/helpers";
 interface IResultProps {
   title: string;
   image: string;
-  missedIngredients: IIngredient[];
-  unusedIngredients: IIngredient[];
   usedIngredients: IIngredient[];
+  missedIngredients: IIngredient[];
+  totalIngredientsCount: number;
+  usedIngredientsCount: number;
 }
 
 const iconColor = (usedIngredintsPercentage: number) => {
+  let color;
   if (usedIngredintsPercentage <= 25) {
-    return "red";
+    color = "red";
   } else if (usedIngredintsPercentage <= 50) {
-    return "yellow";
+    color = "yellow";
   } else if (usedIngredintsPercentage <= 75) {
-    return "green";
+    color = "green";
   } else {
-    return YELLOW_COLOR;
+    color = YELLOW_COLOR;
   }
+
+  return color;
 };
+
+const ingredientsNames = (ingredients: IIngredient[]) =>
+  ingredients.map(({ name }) => name);
 
 const Result = ({
   title,
   image,
   missedIngredients = [],
-  unusedIngredients = [],
-  usedIngredients = [],
+  usedIngredients,
+  totalIngredientsCount,
+  usedIngredientsCount,
 }: IResultProps) => {
-  const TOTAL_INGREDIENTS =
-    usedIngredients.length +
-    missedIngredients.length -
-    unusedIngredients.length;
-
   const USED_INGREDIENTS_PERCENTAGE = calculatePercentage(
-    usedIngredients.length,
-    TOTAL_INGREDIENTS
+    usedIngredientsCount,
+    totalIngredientsCount
   );
-
   const ICON_COLOR = iconColor(USED_INGREDIENTS_PERCENTAGE);
+  const USED_INGREDIENTS_NAMES = ingredientsNames(usedIngredients);
+  const MISSED_INGREDIENTS_NAMES = ingredientsNames(missedIngredients);
+
   return (
     <Link
       to="/"
@@ -56,9 +61,11 @@ const Result = ({
       />
       <div className="flex items-center gap-2">
         <Tooltip
-          tooltipText={`You have ${USED_INGREDIENTS_PERCENTAGE.toFixed(
-            2
-          ).replace(/[.,]00$/, "")}% of the ingredients needed for this recipe`}
+          tooltipText={`You have ${usedIngredientsCount} (${USED_INGREDIENTS_NAMES.join(
+            ", "
+          )}) of the ${totalIngredientsCount} ingredients needed for this recipe. You still need ${MISSED_INGREDIENTS_NAMES.join(
+            ", "
+          )}.`}
           component={USED_INGREDIENTS_PERCENTAGE === 100 ? CheckCircle : Circle}
           componentProps={{
             color: ICON_COLOR,

@@ -21,6 +21,7 @@ export class SpoonacularService {
         {
           ingredients,
           ranking: minimizeMissingIngredients ? 2 : 1,
+          number: 100,
           ignorePantry,
         },
       );
